@@ -1,10 +1,3 @@
-"""Final verification and packaging of the user's local social trust production tool.
-
-Place this file in ~/social_trust and run:
-    python finalize_part3.py
-
-No survey CSV, notebook, or training variables are needed.
-"""
 from __future__ import annotations
 
 import importlib.metadata
@@ -33,7 +26,7 @@ def main():
     if missing:
         raise FileNotFoundError("Files missing from project folder: " + ", ".join(missing))
 
-    # The downloaded file has a descriptive filename; normalize it for users.
+ 
     readme = ROOT / "README.md"
     alternate = ROOT / "README_Social_Trust_With_Feature_Codes.md"
     if not readme.exists() and alternate.exists():
@@ -42,7 +35,7 @@ def main():
     if not readme.exists():
         raise FileNotFoundError("README.md not found in the project folder.")
 
-    # A README drafted before the expanded validation still contains an outdated note.
+
     content = readme.read_text(encoding="utf-8")
     old = ("**Important:** The list above documents acceptable input codes, but documentation is not validation. "
            "The current simple predictor has checks for a few fields only; additional input checks "
@@ -71,8 +64,7 @@ def main():
         encoding="utf-8",
     )
 
-    # Because this file runs as a standalone script in ROOT, this imports the copy
-    # adjacent to the saved .joblib, not a duplicate from an old notebook folder.
+  
     from social_trust_predictor import model, predict_trust
 
     supported = json.loads((ROOT / "supported_countries.json").read_text())
@@ -158,7 +150,7 @@ def main():
     if passed != len(results):
         raise RuntimeError("Some tests failed. See production_test_results.txt; fix those before submitting.")
 
-    # A report PDF is supplied separately: copy it into this folder before final packaging.
+ 
     pdf = ROOT / "Part_III_Production_Report.pdf"
     if not pdf.exists():
         print("\nAll tests passed, but the Part III PDF is not in the folder yet.")
